@@ -4,19 +4,15 @@ import 'package:pratama_form_field_factory/buttons/pratama_icon_buttons.dart';
 import 'package:pratama_form_field_factory/pickers/pratama_date_time_picker/pratama_date_time_picker_presenter.dart';
 
 class PratamaDateTimePicker extends StatefulWidget {
-  final DateTime? currentDate;
   final String label;
   final PratamaDateTimePickerPresenter presenter;
-  final String? validation;
   final Color? primaryColor;
   final Color? backgroundColor;
 
   const PratamaDateTimePicker({
     super.key,
-    this.currentDate,
     required this.label,
     required this.presenter,
-    this.validation,
     this.primaryColor,
     this.backgroundColor
   });
@@ -35,10 +31,10 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
   Widget build(BuildContext context) {
     return TextFormField(
       readOnly: true,
+      controller: widget.presenter.textController,
       decoration: InputDecoration(
         labelText: widget.label 
       ),
-      initialValue: widget.presenter.getFormattedDate()??"",
       validator: widget.presenter.validator??(_) => "",
       onTap: callModalDatePicker,
     );
@@ -80,6 +76,8 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
               child: DatePickerWidget(
                 dateFormat: "dd-MMMM-yyyy",
                 locale: DateTimePickerLocale.id,
+                lastDate: widget.presenter.maxDateTime,
+                firstDate: widget.presenter.minDateTime,
                 pickerTheme: DateTimePickerTheme(
                   backgroundColor: widget.backgroundColor??Colors.transparent,
                   dividerColor: widget.primaryColor ?? const Color.fromARGB(255, 204, 110, 200)
@@ -92,6 +90,7 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
             ),
             InkWell(
               onTap: (){
+                initDate ??= DateTime.now();
                 Navigator.of(context).pop(initDate);
               },
               child: Container(
@@ -114,7 +113,7 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
       });
       if(newDate!= null){
         setState(() {
-          widget.presenter.selectedDate = newDate;
+          widget.presenter.setSelectedDate(newDate);
         });
       }
   }
