@@ -7,6 +7,7 @@ class PratamaDateTimePicker extends StatefulWidget {
   final String label;
   final PratamaDateTimePickerPresenter presenter;
   final Color? primaryColor;
+  final EdgeInsets padding;
   final Color? backgroundColor;
 
   const PratamaDateTimePicker({
@@ -14,7 +15,8 @@ class PratamaDateTimePicker extends StatefulWidget {
     required this.label,
     required this.presenter,
     this.primaryColor,
-    this.backgroundColor
+    this.backgroundColor,
+    this.padding = const EdgeInsets.only(top: 10)
   });
 
   @override
@@ -29,14 +31,17 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
   }
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      readOnly: true,
-      controller: widget.presenter.textController,
-      decoration: InputDecoration(
-        labelText: widget.label 
+    return Container(
+      padding: widget.padding,
+      child: TextFormField(
+        readOnly: true,
+        controller: widget.presenter.textController,
+        decoration: InputDecoration(
+          labelText: widget.label 
+        ),
+        validator: widget.presenter.validator??(_) => "",
+        onTap: callModalDatePicker,
       ),
-      validator: widget.presenter.validator??(_) => "",
-      onTap: callModalDatePicker,
     );
   }
 

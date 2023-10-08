@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PratamaIconButton extends StatelessWidget {
 
-  final  Function()? onTap;
+  final GestureTapCallback? onTap;
   final double? size;
   final Color? color;
   final IconData icon;
