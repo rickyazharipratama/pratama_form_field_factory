@@ -24,6 +24,15 @@ class PratamaRadioListTile extends StatefulWidget {
 
 class _PratamaRadioListTileState extends State<PratamaRadioListTile> {
 
+  @override
+  void initState() {
+    super.initState();
+    widget.presenter.bridgeValidate = (){
+      setState(() {
+        widget.presenter.isNeedToShowError = !widget.presenter.isValid;
+      });
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +41,8 @@ class _PratamaRadioListTileState extends State<PratamaRadioListTile> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-    
           Padding(
             padding: const EdgeInsets.only(
               bottom: 5,
@@ -61,9 +70,32 @@ class _PratamaRadioListTileState extends State<PratamaRadioListTile> {
                   });
                 })
             ).toList(),
+          ),
+          
+          Builder(
+            builder: (context){
+              if(widget.presenter.isNeedToShowError){
+                return Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: Text(
+                    widget.presenter.errorText!,
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error
+                    ),
+                  ),
+                );
+              }
+              return Container();
+            }
           )
         ],
       ),
     );
+  }
+
+  void restating(VoidCallback val){
+    setState(() {
+      val();
+    });
   }
 }

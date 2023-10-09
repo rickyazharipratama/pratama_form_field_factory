@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:pratama_form_field_factory/buttons/pratama_icon_buttons.dart';
 import 'package:pratama_form_field_factory/pickers/pratama_date_time_picker/pratama_date_time_picker_presenter.dart';
+import 'package:pratama_form_field_factory/pratama_form_field_factory.dart';
+import 'package:pratama_form_field_factory/text_field/pratama_text_field_presenter.dart';
 
 class PratamaDateTimePicker extends StatefulWidget {
   final String label;
@@ -25,23 +27,27 @@ class PratamaDateTimePicker extends StatefulWidget {
 
 class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
 
+  late PratamaTextFieldPresenter textPresenter;
+
   @override
   void initState() {
     super.initState();
+    textPresenter = PratamaTextFieldPresenter(
+      label: widget.label,
+      isReadOnly: true,
+      validator: widget.presenter.validator??(_) => "",
+      controller: widget.presenter.textController,
+      onTap: callModalDatePicker
+      
+    );
   }
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: widget.padding,
-      child: TextFormField(
-        readOnly: true,
-        controller: widget.presenter.textController,
-        decoration: InputDecoration(
-          labelText: widget.label 
-        ),
-        validator: widget.presenter.validator??(_) => "",
-        onTap: callModalDatePicker,
-      ),
+      child: PratamaTextField(
+        presenter: textPresenter
+      )
     );
   }
 

@@ -19,6 +19,7 @@ class PratamaTextField extends StatelessWidget {
       padding: padding,
       child: TextFormField(
         readOnly: presenter.isReadOnly,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         keyboardType: presenter.keyboardType,
       
         decoration: InputDecoration(
@@ -27,6 +28,7 @@ class PratamaTextField extends StatelessWidget {
         controller: presenter.textController,
         validator: presenter.validator,
         maxLines: presenter.maxLine,
+        onTap: presenter.onTap,
       ),
     );
   }

@@ -9,6 +9,8 @@ class PratamaTextFieldPresenter{
   final TextInputType? keyboardType;
   final int? maxLine;
   final bool isReadOnly;
+  final TextEditingController? controller;
+  final VoidCallback? onTap;
   String? _val;
 
   PratamaTextFieldPresenter({
@@ -17,10 +19,12 @@ class PratamaTextFieldPresenter{
     required this.label,
     this.keyboardType,
     this. maxLine,
-    this.isReadOnly = false
+    this.isReadOnly = false,
+    this.controller,
+    this.onTap
   }){
     _val = val;
-    textController = TextEditingController(text: _val);
+    textController =  controller ?? TextEditingController(text: _val);
   }
 
   // ignore: unnecessary_getters_setters
