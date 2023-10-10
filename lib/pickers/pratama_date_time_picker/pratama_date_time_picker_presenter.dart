@@ -12,6 +12,7 @@ class PratamaDateTimePickerPresenter{
   VoidCallback? onSelectedDate;
   DateTime? maxDateTime;
   DateTime? minDateTime;
+  String? label;
 
   PratamaDateTimePickerPresenter({
     DateTime? initialDate, 
@@ -19,13 +20,16 @@ class PratamaDateTimePickerPresenter{
     this.locale = DateTimePickerLocale.id,
     this.maxDateTime,
     this.minDateTime,
+    this.label,
     this.validator}){
     if(initialDate != null){
       selectedDate = initialDate;
       _selectedDuration = DateTime.now().difference(selectedDate!);
       
     }
-    textController = TextEditingController();
+    textController = TextEditingController(
+      text: formattedDate
+    );
   }
 
   String?  get formattedDate{

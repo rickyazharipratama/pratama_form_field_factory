@@ -5,7 +5,7 @@ class PratamaTextFieldPresenter{
 
   late final TextEditingController  textController;
   final PratamaStringCallback? validator;
-  final String label;
+  final String? label;
   final TextInputType? keyboardType;
   final int? maxLine;
   final bool isReadOnly;
@@ -16,7 +16,7 @@ class PratamaTextFieldPresenter{
   PratamaTextFieldPresenter({
     String? val, 
     this.validator,
-    required this.label,
+    this.label,
     this.keyboardType,
     this. maxLine,
     this.isReadOnly = false,

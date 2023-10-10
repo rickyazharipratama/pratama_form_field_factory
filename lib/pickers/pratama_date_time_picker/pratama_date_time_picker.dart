@@ -6,7 +6,6 @@ import 'package:pratama_form_field_factory/pratama_form_field_factory.dart';
 import 'package:pratama_form_field_factory/text_field/pratama_text_field_presenter.dart';
 
 class PratamaDateTimePicker extends StatefulWidget {
-  final String label;
   final PratamaDateTimePickerPresenter presenter;
   final Color? primaryColor;
   final EdgeInsets padding;
@@ -14,7 +13,6 @@ class PratamaDateTimePicker extends StatefulWidget {
 
   const PratamaDateTimePicker({
     super.key,
-    required this.label,
     required this.presenter,
     this.primaryColor,
     this.backgroundColor,
@@ -33,10 +31,11 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
   void initState() {
     super.initState();
     textPresenter = PratamaTextFieldPresenter(
-      label: widget.label,
+      label: widget.presenter.label,
       isReadOnly: true,
       validator: widget.presenter.validator??(_) => "",
       controller: widget.presenter.textController,
+      val: widget.presenter.formattedDate,
       onTap: callModalDatePicker
       
     );
@@ -67,7 +66,7 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
                 children: [
                   Expanded(
                     child: Text(
-                      widget.label,
+                      widget.presenter.label??"",
                       style: const TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 18

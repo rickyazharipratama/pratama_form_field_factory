@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pratama_form_field_factory/radios/pratama_radio_list_tile/pratama_radio_list_tile_presenter.dart';
+import 'package:pratama_form_field_factory/radios/pratama_radio_presenter.dart';
 
 class PratamaRadioListTile extends StatefulWidget {
 
-  final PratamaRadioListTilePresenter presenter;
+  final PratamaRadioPresenter presenter;
   final EdgeInsets padding;
   final String label;
   final Color? activeColor;
@@ -91,11 +91,5 @@ class _PratamaRadioListTileState extends State<PratamaRadioListTile> {
         ],
       ),
     );
-  }
-
-  void restating(VoidCallback val){
-    setState(() {
-      val();
-    });
   }
 }

@@ -5,3 +5,11 @@ import 'package:flutter/material.dart';
 typedef PratamaStringCallback = String? Function(String?)?;
 typedef PratamaStringFromDynamicCallback = String? Function(dynamic);
 typedef PratamaVoidCallback = void Function(VoidCallback callback);
+
+
+enum PratamaFormField{
+  textField,
+  dateTIemPicker,
+  radio,
+  customField
+}

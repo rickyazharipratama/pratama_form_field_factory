@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:pratama_form_field_factory/Utils/pratama_Constants.dart';
 import 'package:pratama_form_field_factory/radios/models/pratama_radio_model.dart';
-import 'package:pratama_form_field_factory/radios/pratama_radio_list_tile/pratama_radio_list_tile.dart';
 
-class PratamaRadioListTilePresenter<T>{
+class PratamaRadioPresenter<T>{
 
   final List<PratamaRadioModel> groups;
   T? selectedValue;
   final PratamaStringFromDynamicCallback? validator;
   bool isNeedToShowError = false;
+  final String? label;
   VoidCallback? bridgeValidate;
-  PratamaRadioListTilePresenter({
+
+  PratamaRadioPresenter({
     required this.groups, 
     this.selectedValue,
+    this.label,
     this.validator
   });
 
