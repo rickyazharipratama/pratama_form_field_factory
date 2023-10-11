@@ -7,7 +7,7 @@ class PratamaTextField extends StatelessWidget {
   const PratamaTextField({
     super.key,
     this.padding = const EdgeInsets.only(top: 10),
-    required this.presenter,
+    required this.presenter
   });
 
 
@@ -25,6 +25,7 @@ class PratamaTextField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: presenter.label,
         ),
+        obscureText: presenter.maxLine > 1 ? false : presenter.isObscured,
         controller: presenter.textController,
         validator: presenter.validator,
         maxLines: presenter.maxLine,

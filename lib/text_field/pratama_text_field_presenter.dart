@@ -7,9 +7,10 @@ class PratamaTextFieldPresenter{
   final PratamaStringCallback? validator;
   final String? label;
   final TextInputType? keyboardType;
-  final int? maxLine;
+  final int maxLine;
   final bool isReadOnly;
   final TextEditingController? controller;
+  final bool isObscured;
   final VoidCallback? onTap;
   String? _val;
 
@@ -18,10 +19,11 @@ class PratamaTextFieldPresenter{
     this.validator,
     this.label,
     this.keyboardType,
-    this. maxLine,
+    this. maxLine = 1,
     this.isReadOnly = false,
     this.controller,
-    this.onTap
+    this.onTap,
+    this.isObscured = false
   }){
     _val = val;
     textController =  controller ?? TextEditingController(text: _val);
