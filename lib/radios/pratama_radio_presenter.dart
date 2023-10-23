@@ -10,18 +10,21 @@ class PratamaRadioPresenter<T>{
   bool isNeedToShowError = false;
   final String? label;
   VoidCallback? bridgeValidate;
+  ValueChanged? onExtendedSelectedRadio;
 
   PratamaRadioPresenter({
     required this.groups, 
     this.selectedValue,
     this.label,
-    this.validator
+    this.validator,
+    this.onExtendedSelectedRadio
   });
 
 
   onSelectedRadio(T val){
     selectedValue = val;
     isNeedToShowError = false;
+    onExtendedSelectedRadio?.call(val);
   }
 
   bool get isValid => validator?.call(selectedValue) == null;

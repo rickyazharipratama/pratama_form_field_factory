@@ -4,10 +4,22 @@ class PratamaIconButton extends StatelessWidget {
 
   final GestureTapCallback? onTap;
   final double? size;
+  final Color? backgroundColor;
   final Color? color;
   final IconData icon;
+  final BorderRadius borderRadius;
+  final double areaSize;
 
-  const PratamaIconButton({super.key, required this.icon, this.onTap, this.size, this.color});
+  const PratamaIconButton({
+    super.key, 
+    required this.icon, 
+    this.onTap, 
+    this.size,
+    this.areaSize = 40,
+    this.color, 
+    this.backgroundColor = Colors.transparent,
+    this.borderRadius = BorderRadius.zero
+  });
 
 
   @override
@@ -15,10 +27,11 @@ class PratamaIconButton extends StatelessWidget {
     return  InkWell(
       onTap: onTap??(){},
       child: Container(
-        width: 40,
-        height: 40,
+        width: areaSize,
+        height: areaSize,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20) 
+          borderRadius: borderRadius,
+          color: backgroundColor
         ),
         child: Center(
           child: Icon(

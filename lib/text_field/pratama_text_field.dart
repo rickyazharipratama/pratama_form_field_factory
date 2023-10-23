@@ -21,7 +21,7 @@ class PratamaTextField extends StatelessWidget {
         readOnly: presenter.isReadOnly,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         keyboardType: presenter.keyboardType,
-      
+        onChanged: presenter.onChange,
         decoration: InputDecoration(
           labelText: presenter.label,
         ),

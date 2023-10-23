@@ -12,6 +12,7 @@ class PratamaTextFieldPresenter{
   final TextEditingController? controller;
   final bool isObscured;
   final VoidCallback? onTap;
+  final ValueChanged<String>? onChange;
   String? _val;
 
   PratamaTextFieldPresenter({
@@ -23,7 +24,8 @@ class PratamaTextFieldPresenter{
     this.isReadOnly = false,
     this.controller,
     this.onTap,
-    this.isObscured = false
+    this.isObscured = false,
+    this.onChange
   }){
     _val = val;
     textController =  controller ?? TextEditingController(text: _val);
