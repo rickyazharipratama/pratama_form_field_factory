@@ -4,11 +4,8 @@ import 'package:pratama_form_field_factory/builders/form_builder/pratama_form_bu
 import 'package:pratama_form_field_factory/builders/form_builder/pratama_form_builder_presenter.dart';
 import 'package:pratama_form_field_factory/builders/form_builder/pratama_form_custom_field.dart';
 import 'package:pratama_form_field_factory/pickers/pratama_date_time_picker/pratama_date_time_picker.dart';
-import 'package:pratama_form_field_factory/pickers/pratama_date_time_picker/pratama_date_time_picker_presenter.dart';
 import 'package:pratama_form_field_factory/radios/pratama_radio.dart';
-import 'package:pratama_form_field_factory/radios/pratama_radio_presenter.dart';
 import 'package:pratama_form_field_factory/text_field/pratama_text_field.dart';
-import 'package:pratama_form_field_factory/text_field/pratama_text_field_presenter.dart';
 
 
 
@@ -20,6 +17,7 @@ class PratamaFormBuilder extends StatelessWidget {
   final Widget? submitButton;
   final PratamaFormBuilderPresenter presenter;
   final PratamaCustomFormLayout? customLayout;
+  final EdgeInsets paddingForField;
 
   const PratamaFormBuilder({
     super.key,
@@ -27,7 +25,8 @@ class PratamaFormBuilder extends StatelessWidget {
     this.customField,
     this.submitButton,
     required this.presenter,
-    this.customLayout
+    this.customLayout,
+    this.paddingForField = const EdgeInsets.only(top: 10)
   });
 
 
@@ -82,19 +81,22 @@ class PratamaFormBuilder extends StatelessWidget {
     switch (field.field) {
       case PratamaFormField.textField:
           fieldWidget = PratamaTextField(
-            presenter: field.presenter
+            presenter: field.presenter,
+            padding: paddingForField
           );
          break;
       
       case PratamaFormField.radio:
           fieldWidget = PratamaRadio(
-            presenter: field.presenter
+            presenter: field.presenter,
+            padding: paddingForField,
           );
           break;
       
       case PratamaFormField.dateTIemPicker:
           fieldWidget = PratamaDateTimePicker(
-            presenter: field.presenter
+            presenter: field.presenter,
+            padding: paddingForField,
           );
           break;
       
