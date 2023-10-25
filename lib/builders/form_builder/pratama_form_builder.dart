@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pratama_form_field_factory/Utils/pratama_Constants.dart';
 import 'package:pratama_form_field_factory/builders/form_builder/pratama_form_builder_model.dart';
+import 'package:pratama_form_field_factory/builders/form_builder/pratama_form_builder_presenter.dart';
 import 'package:pratama_form_field_factory/builders/form_builder/pratama_form_custom_field.dart';
 import 'package:pratama_form_field_factory/pickers/pratama_date_time_picker/pratama_date_time_picker.dart';
+import 'package:pratama_form_field_factory/pickers/pratama_date_time_picker/pratama_date_time_picker_presenter.dart';
 import 'package:pratama_form_field_factory/radios/pratama_radio.dart';
+import 'package:pratama_form_field_factory/radios/pratama_radio_presenter.dart';
 import 'package:pratama_form_field_factory/text_field/pratama_text_field.dart';
+import 'package:pratama_form_field_factory/text_field/pratama_text_field_presenter.dart';
 
 
 
@@ -14,14 +18,16 @@ class PratamaFormBuilder extends StatelessWidget {
   final List<PratamaFormBuilderModel> fields;
   final List<PratamaFormCustomField>? customField;
   final Widget? submitButton;
-  final GlobalKey<FormState> formKey;
+  final PratamaFormBuilderPresenter presenter;
+  final PratamaCustomFormLayout? customLayout;
 
   const PratamaFormBuilder({
     super.key,
-    required this.formKey,
     required this.fields,
     this.customField,
-    this.submitButton
+    this.submitButton,
+    required this.presenter,
+    this.customLayout
   });
 
 
@@ -45,23 +51,28 @@ class PratamaFormBuilder extends StatelessWidget {
         }
       }
     }
-    return Form(
-      key: formKey,
-      child: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 10
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children:  fields.map((item){
-              return getWidgetField(field: item);
-            }).toList(),
-          ),
+
+    presenter.setFields(fields);
+
+    Widget child =  Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children:  fields.map((item){
+        return getWidgetField(field: item);
+      }).toList(),
+    );
+    
+    if(customLayout != null){
+      return customLayout!.call(context, child);
+    }
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 10
         ),
-      )
+        child: child
+      ),
     );
   }
 
@@ -76,11 +87,15 @@ class PratamaFormBuilder extends StatelessWidget {
          break;
       
       case PratamaFormField.radio:
-          fieldWidget = PratamaRadio(presenter: field.presenter);
+          fieldWidget = PratamaRadio(
+            presenter: field.presenter
+          );
           break;
       
       case PratamaFormField.dateTIemPicker:
-          fieldWidget = PratamaDateTimePicker( presenter: field.presenter);
+          fieldWidget = PratamaDateTimePicker(
+            presenter: field.presenter
+          );
           break;
       
       case PratamaFormField.customField:

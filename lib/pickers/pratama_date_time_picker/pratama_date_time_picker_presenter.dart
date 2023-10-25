@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:pratama_form_field_factory/Utils/pratama_Constants.dart';
+import 'package:pratama_form_field_factory/pickers/pratama_date_time_picker/pratama_date_time_picker.dart';
+import 'package:pratama_form_field_factory/text_field/pratama_text_field_presenter.dart';
 
 class PratamaDateTimePickerPresenter{
 
   DateTime? selectedDate;
   DateTimePickerLocale locale;
   PratamaStringCallback? validator;
-  late TextEditingController textController;
   Duration? _selectedDuration;
   VoidCallback? onSelectedDate;
   DateTime? maxDateTime;
   DateTime? minDateTime;
   String? label;
+  late PratamaTextFieldPresenter textPresenter;
+  GlobalKey<PratamaDateTimePickerState> key = GlobalKey<PratamaDateTimePickerState>();
 
   PratamaDateTimePickerPresenter({
     DateTime? initialDate, 
@@ -27,8 +30,14 @@ class PratamaDateTimePickerPresenter{
       _selectedDuration = DateTime.now().difference(selectedDate!);
       
     }
-    textController = TextEditingController(
-      text: formattedDate
+    textPresenter = PratamaTextFieldPresenter(
+      label: label,
+      isReadOnly: true,
+      validator: validator??(_) => "",
+      controller: TextEditingController(
+        text: formattedDate
+      ),
+      val: formattedDate
     );
   }
 
@@ -68,11 +77,17 @@ class PratamaDateTimePickerPresenter{
   setSelectedDate(DateTime selectedDate){
     this.selectedDate = selectedDate;
     _selectedDuration = DateTime.now().difference(selectedDate);
-    textController.value = TextEditingValue(
+    textPresenter.controller!.value = TextEditingValue(
       text: formattedDate!
     );
+    textPresenter.isNeedToShowError = false;
+    releaseFocus();
     if(onSelectedDate != null){
       onSelectedDate!();
     }
+  }
+
+  releaseFocus(){
+    textPresenter.textNode.unfocus();
   }
 }

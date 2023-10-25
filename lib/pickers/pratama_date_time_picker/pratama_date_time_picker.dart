@@ -20,32 +20,32 @@ class PratamaDateTimePicker extends StatefulWidget {
   });
 
   @override
-  _PratamaDateTimePickerState createState() => _PratamaDateTimePickerState();
+  PratamaDateTimePickerState createState() => PratamaDateTimePickerState();
 }
 
-class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
-
-  late PratamaTextFieldPresenter textPresenter;
+class PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
 
   @override
   void initState() {
     super.initState();
-    textPresenter = PratamaTextFieldPresenter(
+    widget.presenter.textPresenter = PratamaTextFieldPresenter(
       label: widget.presenter.label,
       isReadOnly: true,
       validator: widget.presenter.validator??(_) => "",
-      controller: widget.presenter.textController,
+      controller: TextEditingController(
+        text: widget.presenter.formattedDate
+      ),
       val: widget.presenter.formattedDate,
       onTap: callModalDatePicker
-      
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: widget.padding,
       child: PratamaTextField(
-        presenter: textPresenter
+        presenter: widget.presenter.textPresenter
       )
     );
   }
@@ -121,10 +121,14 @@ class _PratamaDateTimePickerState extends State<PratamaDateTimePicker> {
           ],
         );
       });
+
       if(newDate!= null){
         setState(() {
           widget.presenter.setSelectedDate(newDate);
+          widget.presenter.releaseFocus();
         });
+      }else{
+        widget.presenter.releaseFocus();
       }
   }
 }

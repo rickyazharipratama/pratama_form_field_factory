@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pratama_form_field_factory/Utils/pratama_Constants.dart';
+import 'package:pratama_form_field_factory/pratama_form_field_factory.dart';
 import 'package:pratama_form_field_factory/radios/models/pratama_radio_model.dart';
 
 class PratamaRadioPresenter<T>{
@@ -11,6 +12,7 @@ class PratamaRadioPresenter<T>{
   final String? label;
   VoidCallback? bridgeValidate;
   ValueChanged? onExtendedSelectedRadio;
+  GlobalKey<PratamaRadioState> key = GlobalKey<PratamaRadioState>();
 
   PratamaRadioPresenter({
     required this.groups, 

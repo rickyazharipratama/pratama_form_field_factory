@@ -18,10 +18,10 @@ class PratamaRadio extends StatefulWidget {
 
   @override
   // ignore: library_private_types_in_public_api
-  _PratamaRadioState createState() => _PratamaRadioState();
+  PratamaRadioState createState() => PratamaRadioState();
 }
 
-class _PratamaRadioState extends State<PratamaRadio> {
+class PratamaRadioState extends State<PratamaRadio> {
 
 
   @override
